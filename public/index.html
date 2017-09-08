@@ -1,12 +1,14 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="disasterboard">
   <head>
     <meta charset="utf-8">
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js"></script>
     <script type="text/javascript" src="/app.js"></script>
     <title></title>
   </head>
-  <body ng-app="">
-    {{3 + 3}}
+
+  <body ng-controller="mainController as ctrl">
+{{ctrl.message}}
   </body>
+
 </html>
