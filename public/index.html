@@ -4,18 +4,22 @@
 <head>
   <meta charset="utf-8">
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js"></script>
-  <script type="text/javascript" src="/app.js"></script>
+  <script type="text/javascript" src="app.js"></script>
+  <link rel="stylesheet" href="style.css">
   <title></title>
 </head>
 
 <body ng-controller="mainController as ctrl">
   <header>
-
+    <!-- testing, can be deleted -->
+    <p>header</p>
   </header>
 
   <div class="container">
 
     <main>
+      <!-- testing, can be deleted -->
+      <p>main body</p>
       <div ng-repeat="notice in ctrl.notices" class="notice">
         <h3>{{ notice.title }}</h3>
         <p>{{ notice.content }}</p>
@@ -32,7 +36,8 @@
     </nav>
 
     <aside>
-
+      <!-- testing, can be deleted -->
+      Aside
     </aside>
 
     <!-- end of "container" -->
