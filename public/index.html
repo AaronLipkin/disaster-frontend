@@ -20,14 +20,14 @@
     <main>
       <!-- testing, can be deleted -->
       <p>main body</p>
-      <div ng-repeat="notice in ctrl.survivors" class="notice">
-        <h3>{{ notice.title }}</h3>
-        <p>{{ notice.content }}</p>
+      <div ng-repeat="survivor in ctrl.survivors track by $index" class="survivor">
+        <h3>{{ survivor.id }}</h3>
+        <p>{{ survivor.name }}</p>
       </div>
     </main>
 
     <nav>
-      <h4>POST A NOTICE</h4>
+      <h4>POST A survivor</h4>
       <form ng-submit="ctrl.processForm()">
         <input type="text" ng-model="ctrl.formdata.author" placeholder="author" />
         <input type="text" ng-model="ctrl.formdata.title" placeholder="title" />

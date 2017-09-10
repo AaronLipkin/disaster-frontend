@@ -9,13 +9,24 @@ app.controller('mainController', ['$http', function($http) {
   $http({
     method: 'GET',
   // need to set url
-    url: 'http://localhost:3000/#'
+    url: 'http://localhost:3000/survivors/#'
   }).then(response => {
     console.log(response);
     this.survivors = response.data;
   })
   .catch(err => console.log(err));
 
+  $http({
+    method: 'GET',
+  // need to set url
+    url: 'http://localhost:3000/cities/#'
+  }).then(response => {
+    console.log(response);
+    this.cities = response.data;
+  })
+  .catch(err => console.log(err));
+
+  // form submit
   this.processForm = function() {
   	console.log('processForm function . . .');
   	console.log('Formdata: ', this.formdata);
