@@ -18,11 +18,14 @@
   <div class="container">
 
     <main>
-      <!-- testing, can be deleted -->
-      <p>main body</p>
-      <div ng-repeat="survivor in ctrl.survivors track by $index" class="survivor">
-        <h3>{{ survivor.id }}</h3>
-        <p>{{ survivor.name }}</p>
+
+      <div ng-repeat="city in ctrl.cities track by $index" class="survivor">
+        <h3>{{ city.name }}</h3>
+        <ul>
+          <li>{{ city.name }}</li>
+          <li>{{ city.emergency_number }}</li>
+          <li>{{ city.extra_info }}</li>
+        </ul>
       </div>
     </main>
 

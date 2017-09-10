@@ -4,11 +4,11 @@ app.controller('mainController', ['$http', function($http) {
 // test message
   this.message = "controller works"
   this.survivors = [];
+  this.cities = [];
   this.formdata = {};
 
   $http({
     method: 'GET',
-  // need to set url
     url: 'http://localhost:3000/survivors/#'
   }).then(response => {
     console.log(response);
@@ -18,7 +18,6 @@ app.controller('mainController', ['$http', function($http) {
 
   $http({
     method: 'GET',
-  // need to set url
     url: 'http://localhost:3000/cities/#'
   }).then(response => {
     console.log(response);
