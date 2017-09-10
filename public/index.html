@@ -5,13 +5,9 @@
   <meta charset="utf-8">
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js"></script>
   <script type="text/javascript" src="app.js"></script>
-  <script
-    src="https://code.jquery.com/jquery-3.2.1.min.js"
-    integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-    crossorigin="anonymous"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <link rel="stylesheet" href="style.css">
-  <title></title>
+  <title>Project 4</title>
 </head>
 
 <body ng-controller="mainController as ctrl">
@@ -25,9 +21,8 @@
     <main>
 
       <div ng-repeat="city in ctrl.cities track by $index" class="survivor">
-        <h3>{{ city.name }}</h3>
-        <ul>
-          <li>{{ city.name }}</li>
+        <h3 ng-click="toggle = !toggle">{{ city.name }}</h3>
+        <ul ng-show="toggle">
           <li>{{ city.emergency_number }}</li>
           <li>{{ city.extra_info }}</li>
         </ul>
@@ -35,12 +30,12 @@
     </main>
 
     <nav>
-      <h4>POST A survivor</h4>
-      <form ng-submit="ctrl.processForm()">
+      <h4 ng-click="toggle_form = !toggle_form">POST A survivor</h4>
+      <form ng-show="toggle_form" ng-submit="ctrl.processForm()">
         <input type="text" ng-model="ctrl.formdata.author" placeholder="author" />
         <input type="text" ng-model="ctrl.formdata.title" placeholder="title" />
         <input type="text" ng-model="ctrl.formdata.content" placeholder="content" />
-        <input class="submit" type="submit" />
+        <button class="submit btn btn-primary" type="submit" /> Submit </button>
     </nav>
 
     <aside>
