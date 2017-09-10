@@ -7,6 +7,7 @@ app.controller('mainController', ['$http', function($http) {
   this.cities = [];
   this.formdata = {};
 
+// GET route for survivors
   $http({
     method: 'GET',
     url: 'http://localhost:3000/survivors/#'
@@ -16,6 +17,7 @@ app.controller('mainController', ['$http', function($http) {
   })
   .catch(err => console.log(err));
 
+// GET route for cities
   $http({
     method: 'GET',
     url: 'http://localhost:3000/cities/#'
