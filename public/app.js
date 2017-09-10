@@ -3,7 +3,7 @@ const app = angular.module('disasterboard', []);
 app.controller('mainController', ['$http', function($http) {
 // test message
   this.message = "controller works"
-  this.notices = [];
+  this.survivors = [];
   this.formdata = {};
 
   $http({
@@ -12,7 +12,7 @@ app.controller('mainController', ['$http', function($http) {
     url: 'http://localhost:3000/#'
   }).then(response => {
     console.log(response);
-    this.notices = response.data;
+    this.survivors = response.data;
   })
   .catch(err => console.log(err));
 

@@ -36,7 +36,8 @@ nav, aside {
   margin: 5px;
   padding: 5px 15px 5px 15px;
   background-color: #E4E1DE;
-  border-radius: 5px;
+  border-radius: 5px; 
+}
 
 @media (min-width: 768px) {
   .container {
