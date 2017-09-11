@@ -4,6 +4,7 @@
 <head>
   <meta charset="utf-8">
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js"></script>
+  <script type="text/javascript" src="geolocator.min.js"></script>
   <script type="text/javascript" src="app.js"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <link rel="stylesheet" href="style.css">
@@ -11,9 +12,9 @@
 </head>
 
 <body ng-controller="mainController as ctrl">
-  <header>
-    <!-- testing, can be deleted -->
+  <header >
     <p>header</p>
+    <div id="map-canvas" style="width:600px;height:400px"></div>
   </header>
 
   <div class="container">
