@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/AaronLipkin/disaster-frontend#readme",
   "dependencies": {
-    "express": "^4.15.4"
+    "express": "^4.15.4",
+    "geolocator": "^2.1.1"
   }
 }
