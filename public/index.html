@@ -14,7 +14,7 @@
 <body ng-controller="mainController as ctrl">
   <header >
     <p>header</p>
-    <div id="map-canvas" style="width:600px;height:400px"></div>
+    <!-- <div id="map-canvas" style="width:600px;height:400px"></div> -->
   </header>
 
   <div class="container">
@@ -36,16 +36,16 @@
 
     <nav>
       <h4 ng-click="toggle_form = !toggle_form">POST A survivor</h4>
-      <form ng-show="toggle_form" ng-submit="ctrl.processForm()">
-        <input type="text" ng-model="ctrl.formdata.author" placeholder="author" />
-        <input type="text" ng-model="ctrl.formdata.title" placeholder="title" />
-        <input type="text" ng-model="ctrl.formdata.content" placeholder="content" />
+        <form ng-show="toggle_form" ng-submit="ctrl.createSurvivor()">
+        <input type="text" ng-model="ctrl.formdata.name" placeholder="name"/>
+        <input type="text" ng-model="ctrl.formdata.number" placeholder="number"/>
+        <!-- <input type="text" ng-model="ctrl.formdata.lng" placeholder="lng" /> -->
+        <!-- <input type="text" ng-model="ctrl.formdata.lat" placeholder="lat"/> -->
         <button class="submit btn btn-primary" type="submit" /> Submit </button>
     </nav>
 
     <aside>
-      <!-- testing, can be deleted -->
-      Aside
+<h1>Aside</h1>
     </aside>
 
     <!-- end of "container" -->
