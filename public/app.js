@@ -2,25 +2,11 @@ const app = angular.module('disasterboard', []);
 
 app.controller('mainController', ['$http', function($http) {
   const controller = this;
-  // test message
-  this.message = "controller works"
-  this.survivors = [];
   this.cities = {};
   this.formdata = {};
+  this.survivor_distance = {};
   this.geolocation = [];
 
-// GET route for survivors
-this.getSurvivors = function () {
-  $http({
-    method: 'GET',
-    url: 'http://localhost:3000/survivors/#'
-  }).then(response => {
-    console.log(response);
-    this.survivors = response.data;
-    console.log(this.survivors.distance);
-  })
-  .catch(err => console.log(err));
-}
 
 // GET route for cities
 this.getCities = function (){
@@ -28,13 +14,12 @@ this.getCities = function (){
     method: 'GET',
     url: 'http://localhost:3000/cities/#'
   }).then(response => {
-    // console.log(response);
     this.cities = response.data;
-    console.log(response.data);
   })
   .catch(err => console.log(err));
 }
 
+// POST route to create new survivor
 this.createSurvivor = function () {
   $http({
     method: 'POST',
@@ -47,16 +32,27 @@ this.createSurvivor = function () {
   }).then(response => {
     console.log(response);
     this.getCities();
-    this.getSurvivors();
   })
   .catch(err => console.log(err));
 }
 
-  // form submit
-  // this.processForm = function() {
-  // 	console.log('processForm function . . .');
-  // 	console.log('Formdata: ', this.formdata);
-  // }
+this.distanceSurvivor = function () {
+  $http({
+    method: 'POST',
+    url: 'http://localhost:3000/survivors/distanced',
+    data: {
+      res_lat: this.geolocation.coords.latitude,
+      res_lng: this.geolocation.coords.longitude
+    }
+  }).then(response => {
+    console.log(response);
+    // console.log(this.geolocation.coords.longitude);
+    // console.log(response.data);
+    // this.survivor_distance = response.data;
+    // console.log(this.survivor_distance);
+  })
+  .catch(err => console.log(err));
+}
 
 // geolocator
   geolocator.config({
@@ -91,9 +87,8 @@ this.createSurvivor = function () {
   // end of window onload
   };
 
-  this.getSurvivors();
+// to run on page load
   this.getCities();
+
 // end of mainController
 }]);
-// test message to confirm app.js is linked
-console.log('app.js working');
