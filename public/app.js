@@ -4,9 +4,8 @@ app.controller('mainController', ['$http', function($http) {
   const controller = this;
   this.cities = {};
   this.formdata = {};
-  this.survivor_distance = {};
-  this.geolocation = [];
-
+  this.survivor_distance = [];
+  this.geolocation = {};
 
 // GET route for cities
 this.getCities = function (){
@@ -45,11 +44,11 @@ this.distanceSurvivor = function () {
       res_lng: this.geolocation.coords.longitude
     }
   }).then(response => {
-    console.log(response);
+    console.log(response.data);
     // console.log(this.geolocation.coords.longitude);
     // console.log(response.data);
-    // this.survivor_distance = response.data;
-    // console.log(this.survivor_distance);
+    this.survivor_distance = response.data;
+    console.log(this.survivor_distance);
   })
   .catch(err => console.log(err));
 }
@@ -80,8 +79,10 @@ this.distanceSurvivor = function () {
       geolocator.locate(options, function (err, location) {
           if (err) return console.log(err);
           console.log(location);
-          controller.geolocation = location;
-          console.log(controller.geolocation.address.city);
+          this.geolocation = location;
+          console.log(this.geolocation.coords.longitude);
+          console.log(this.geolocation.coords.latitude);
+          // console.log(controller.geolocation.address.city);
       });
 
   // end of window onload
