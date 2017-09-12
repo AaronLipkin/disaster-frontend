@@ -14,7 +14,6 @@
 <body ng-controller="mainController as ctrl">
   <header >
     <p>header</p>
-    <div id="map-canvas" style="width:600px;height:400px"></div>
   </header>
 
   <div class="container">
@@ -27,8 +26,8 @@
           Extra info: {{ city.extra_info }}<br>
           City ID: {{ city.id }}<br>
           Survivors:
-          <ul ng-repeat="survivor in ctrl.survivors track by $index" ng-show="city.id == survivor.city_id">
-            <li>{{survivor.name}}</li>
+          <ul ng-repeat="x in city.survivors">
+            <li>{{x.name}}</li>
           </ul>
         </div>
       </div>
@@ -36,16 +35,19 @@
 
     <nav>
       <h4 ng-click="toggle_form = !toggle_form">POST A survivor</h4>
-      <form ng-show="toggle_form" ng-submit="ctrl.processForm()">
-        <input type="text" ng-model="ctrl.formdata.author" placeholder="author" />
-        <input type="text" ng-model="ctrl.formdata.title" placeholder="title" />
-        <input type="text" ng-model="ctrl.formdata.content" placeholder="content" />
+        <form ng-show="toggle_form" ng-submit="ctrl.createSurvivor()">
+        <input type="text" ng-model="ctrl.formdata.name" placeholder="name"/>
+        <input type="text" ng-model="ctrl.formdata.number" placeholder="number"/>
         <button class="submit btn btn-primary" type="submit" /> Submit </button>
     </nav>
 
     <aside>
-      <!-- testing, can be deleted -->
-      Aside
+      <button type="button" ng-click="ctrl.distanceSurvivor()" name="button">distance</button>
+      <div>
+          <!-- <ul ng-repeat="x in ctrl.survivor_distance"> -->
+            <!-- <li>{{x}}</li> -->
+          </ul>
+      </div>
     </aside>
 
     <!-- end of "container" -->
