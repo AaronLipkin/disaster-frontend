@@ -5,28 +5,46 @@ app.controller('mainController', ['$http', function($http) {
   this.cities = {};
   this.formdata = {};
   this.survivor_distance = [];
-  this.geolocation = {};
+  this.geolocation;
+  this.display_city;
+  this.cityform = {};
+  let geolocation;
+  this.mode = "main";
+
 
 // GET route for cities
-this.getCities = function (){
+this.getCities =  () => {
   $http({
     method: 'GET',
-    url: 'http://localhost:3000/cities/#'
+    url: 'https://disaster-app-wdir.herokuapp.com/cities/#'
   }).then(response => {
     this.cities = response.data;
   })
   .catch(err => console.log(err));
 }
 
+this.getCity =  (id) => {
+  $http({
+    method: 'GET',
+    url: 'https://disaster-app-wdir.herokuapp.com/cities/' + id
+  }).then(response => {
+    this.display_city = response.data;
+  })
+  .catch(err => console.log(err));
+}
+
 // POST route to create new survivor
-this.createSurvivor = function () {
+this.createSurvivor = () => {
+  console.log(geolocation)
   $http({
     method: 'POST',
-    url: 'http://localhost:3000/survivors/',
+    url: 'https://disaster-app-wdir.herokuapp.com/survivors/',
     data: {
       name: this.formdata.name,
       number: this.formdata.number,
-      city: this.geolocation.address.city
+      city: geolocation.address.city,
+      lat: geolocation.coords.latitude,
+      lng: geolocation.coords.longitude
     }
   }).then(response => {
     console.log(response);
@@ -35,18 +53,51 @@ this.createSurvivor = function () {
   .catch(err => console.log(err));
 }
 
-this.distanceSurvivor = function () {
+this.editCity = (id) => {
+  console.log(geolocation)
   $http({
-    method: 'POST',
-    url: 'http://localhost:3000/survivors/distanced',
+    method: 'PUT',
+    url: 'https://disaster-app-wdir.herokuapp.com/cities/' + id,
     data: {
-      res_lat: this.geolocation.coords.latitude,
-      res_lng: this.geolocation.coords.longitude
+      emergency_number: this.cityform.en,
+      extra_info: this.cityform.extra_info
     }
   }).then(response => {
-    console.log(response.data);
+    console.log(response);
+    this.getCities();
+  })
+  .catch(err => console.log(err));
+}
+
+this.destroySurvivor = (id) => {
+  console.log(geolocation)
+  $http({
+    method: 'DELETE',
+    url: 'https://disaster-app-wdir.herokuapp.com/survivors/' + id,
+    params: {
+      res_lat: geolocation.coords.latitude,
+      res_lng: geolocation.coords.longitude
+    }
+  }).then(response => {
+    console.log(response);
+    this.message = response.data.response
+    this.distanceSurvivor();
+  })
+  .catch(err => console.log(err));
+}
+
+this.distanceSurvivor = ()  =>  {
+  $http({
+    method: 'POST',
+    url: 'https://disaster-app-wdir.herokuapp.com/survivors/distanced',
+    data: {
+      res_lat: geolocation.coords.latitude,
+      res_lng: geolocation.coords.longitude
+    }
+  }).then(response => {
     // console.log(this.geolocation.coords.longitude);
     // console.log(response.data);
+    this.mode = "use";
     this.survivor_distance = response.data;
     console.log(this.survivor_distance);
   })
@@ -62,7 +113,7 @@ this.distanceSurvivor = function () {
       }
   });
 
-  window.onload = function () {
+  window.onload = ()  =>  {
       var options = {
           enableHighAccuracy: true,
           timeout: 500,
@@ -79,9 +130,9 @@ this.distanceSurvivor = function () {
       geolocator.locate(options, function (err, location) {
           if (err) return console.log(err);
           console.log(location);
-          this.geolocation = location;
-          console.log(this.geolocation.coords.longitude);
-          console.log(this.geolocation.coords.latitude);
+          geolocation = location;
+          console.log(geolocation.coords.longitude);
+          console.log(geolocation.coords.latitude);
           // console.log(controller.geolocation.address.city);
       });
 

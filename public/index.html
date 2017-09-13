@@ -6,53 +6,69 @@
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js"></script>
   <script type="text/javascript" src="geolocator.min.js"></script>
   <script type="text/javascript" src="app.js"></script>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="/reset.css">
+  <link rel="stylesheet" href="/style.css">
   <title>Project 4</title>
 </head>
 
 <body ng-controller="mainController as ctrl">
-  <header >
-    <p>header</p>
-  </header>
-
-  <div class="container">
-
-    <main>
-      <div ng-repeat="city in ctrl.cities track by $index" class="survivor">
-        <h3 ng-click="toggle = !toggle">{{ city.name }}</h3>
-        <div ng-show="toggle">
-          Number: {{ city.emergency_number }}<br>
-          Extra info: {{ city.extra_info }}<br>
-          City ID: {{ city.id }}<br>
-          Survivors:
-          <ul ng-repeat="x in city.survivors">
-            <li>{{x.name}}</li>
-          </ul>
-        </div>
+  <div id="main" ng-show="ctrl.mode === 'main'">
+    <button class="need" ng-click="ctrl.mode = 'need'">I Need Help</button>
+    <button class="can" ng-click="ctrl.mode = 'can'">I Can Help</button>
+  </div>
+  <div id="needs-help" ng-show="ctrl.mode === 'need'">
+      <form ng-submit="ctrl.createSurvivor()">
+        <input type="text" ng-model="ctrl.formdata.name" placeholder="Name"/>
+        <input type="text" ng-model="ctrl.formdata.number" placeholder="Phone Number"/>
+        <input class="submit" type="submit" />
+    </form>
+  </div>
+  <div id="can-help" ng-show="ctrl.mode === 'can'">
+      <button class="use" ng-click="ctrl.distanceSurvivor()">Use My Location</button>
+      <button class="lookup" ng-click="ctrl.mode = 'cities'">Check By City</button>
+  </div>
+  <div id="use" ng-show="ctrl.mode === 'use'">
+      <div class="survivor" ng-repeat="surv in ctrl.survivor_distance.data | orderBy : 'distance'">
+      <div class="stats">
+        <h1>Name: {{surv.object.name}}</h1>
+        <h1>Number: {{surv.object.number}}</h1>
+        <h1>Distance: ~{{surv.distance * 69 | number : 0}} miles</h1>
       </div>
-    </main>
-
-    <nav>
-      <h4 ng-click="toggle_form = !toggle_form">POST A survivor</h4>
-        <form ng-show="toggle_form" ng-submit="ctrl.createSurvivor()">
-        <input type="text" ng-model="ctrl.formdata.name" placeholder="name"/>
-        <input type="text" ng-model="ctrl.formdata.number" placeholder="number"/>
-        <button class="submit btn btn-primary" type="submit" /> Submit </button>
-    </nav>
-
-    <aside>
-      <button type="button" ng-click="ctrl.distanceSurvivor()" name="button">distance</button>
-      <div>
-          <!-- <ul ng-repeat="x in ctrl.survivor_distance"> -->
-            <!-- <li>{{x}}</li> -->
-          </ul>
+      <div class="safe">
+        <a ng-click="ctrl.destroySurvivor(surv.object.id)">Mark Safe</a>
+        <a href="http://google.com/maps/?q={{surv.object.lat}},{{surv.object.lng}}" target="_blank">Navigate</a>
       </div>
-    </aside>
-
-    <!-- end of "container" -->
+      </div>
+  </div>
+  <div id="cities" ng-show="ctrl.mode === 'cities'">
+    <select ng-model="ctrl.display_city_id" ng-blur="ctrl.getCity(ctrl.display_city_id)">
+      <option ng-repeat="city in ctrl.cities" value="{{city.id}}">{{city.name}}</option>
+    </select>
+    <div ng-show="ctrl.display_city">
+    <h1 class="info">Emergency number:<br> {{ctrl.display_city.emergency_number}}</h1>
+    <h1 class="info">Extra Info:</h1>
+    <h2>{{ctrl.display_city.extra_info}}</h2>
+    <button class="edit-button" ng-click="ctrl.editformshow = true">Edit</button>
+    <form ng-show="ctrl.editformshow" class="edit-form" ng-submit="ctrl.editCity(ctrl.display_city_id)">
+      <input type="text" ng-model="ctrl.cityform.en" placeholder="{{ctrl.display_city.emergency_number}}">
+      <input type="text" ng-model="ctrl.cityform.extra_info" placeholder="{{ctrl.display_city.extra_info}}">
+      <input type="submit" ng-click="ctrl.editformshow=false">
+    </form>
+    <hr>
+    <div class="survivor" ng-repeat="surv in ctrl.display_city.survivors">
+      <div class="stats">
+        <h1>Name: {{surv.name}}</h1>
+        <h1>Number: {{surv.number}}</h1>
+        
+      </div>
+      <div class="safe">
+      <br>
+        <a href="http://google.com/maps/?q={{surv.lat}},{{surv.lng}}" target="_blank">Navigate</a>
+      </div>
+      </div>
   </div>
 
+      </div>
 </body>
 
 </html>
