@@ -48,7 +48,7 @@ this.createSurvivor = () => {
     }
   }).then(response => {
     console.log(response);
-    this.getCities();
+    location.reload();
   })
   .catch(err => console.log(err));
 }
