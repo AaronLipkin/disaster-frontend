@@ -11,10 +11,8 @@ Mark Murphy
 - When a disaster overwhelms emergency personel and government agencies, citizens become first responders. With our post-disaster rescue app, those in distress are able to put out calls for help to neighbors or anyone in the area.
 
 **TECHNOLOGY USED:**
-- HTML, CSS, Ruby, Rails, Express, AngularJS
-
-**PLANNED FEATURES:**
-- Integration with cellphone's GPS services for more accurate location reporting
+- HTML, CSS, Ruby, Rails, Express, AngularJS<br>
+[Link to backend repo](https://github.com/AaronLipkin/disaster_app_api)
 
 ## Screenshots
 ### Landing Page
